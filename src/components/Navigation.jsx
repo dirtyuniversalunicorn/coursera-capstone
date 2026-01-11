@@ -13,7 +13,7 @@ export default function Navigation() {
       <ul>
         {navigation.map((navigationItem) => (
           <li key={navigationItem}>
-            <a href={`/${navigationItem}`}>{navigationItem.toUpperCase()}</a>
+            <a href={`/${navigationItem}`}>{navigationItem}</a>
           </li>
         ))}
       </ul>
