@@ -29,7 +29,7 @@ const testimonialsItems = [
 
 export default function Testimonials() {
   return (
-    <section className="testimonials-section background">
+    <section className="testimonials-section background-2">
       <h2 className="sub-title">Testimonials</h2>
       <div className="testimonials-wrapper wrap">
         {testimonialsItems.map((item) => (

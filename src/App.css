@@ -164,7 +164,6 @@ gap: 3rem
 
 }
 
-
 .order-food-btn img {
   width: 20px;
   height: 20px;
@@ -461,6 +460,10 @@ h1{
 }
 .background-2{
   background-color: hsla(0, 0%, 0%, 0.356);
+}
+
+img {
+  border-radius: 15px;
 }
 
 @media(max-width: 1225px){

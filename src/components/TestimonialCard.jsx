@@ -5,7 +5,9 @@ export default function TestimonialCard({ rating, img, userName, review }) {
     <div className="testimonial-card">
       <div className="testimonial-detail">
         <h3>{rating}</h3>
-        <AiFillStar color="#F4CE14" />
+        {Array.from({ length: rating }, (_, index) => (
+          <AiFillStar key={index} color="#F4CE14" stroke="black" />
+        ))}
       </div>
       <div className="testimonial-detail">
         <img src={img} />
