@@ -20,7 +20,7 @@ export default function Hero() {
           </Link>
         </div>
         <div className="hero-section-col2">
-          <img src={restaurantChefB} width={500} />
+          <img src={restaurantChefB} />
         </div>
       </div>
     </section>

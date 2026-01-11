@@ -3,8 +3,8 @@ import image2 from "../icons_assets/Mario and Adrian b.jpg";
 
 export default function AboutSection() {
   return (
-    <section className="about-section">
-      <div className="about-wrapper wrap">
+    <section className="about-section wrap">
+      <div className="about-wrapper">
         <h1>Little Lemon</h1>
         <h2 className="sub-title">Chicago</h2>
         <p className="lead-text">

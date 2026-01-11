@@ -1,33 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { navigation } from "./Navigation";
 
-export const navigation = [
-  { url: "", page: "home" },
-  { url: "/about", page: "about" },
-  { url: "/menu", page: "menu" },
-  { url: "/testimonials", page: "testimonials" },
-  { url: "/order-online", page: "order online" },
-  { url: "/login", page: "login" },
-];
-
-export default function Navigation() {
+export default function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <>
-      <nav className="nav-desktop">
-        <ul>
-          {navigation.map((navigationItem) => (
-            <Link
-              key={navigationItem.url}
-              to={`/${navigationItem.url}`}
-              className="link"
-            >
-              <li>{navigationItem.page}</li>
-            </Link>
-          ))}
-        </ul>
-      </nav>
-      {/* Hamburger button */}
+    <div className="mobile-nav-container">
       <button
         className="hamburger-btn"
         onClick={() => setIsOpen(!isOpen)}
@@ -38,8 +17,7 @@ export default function Navigation() {
         <span className={`bar ${isOpen ? "open" : ""}`}></span>
       </button>
 
-      {/* Mobile nav */}
-      <nav className={`nav-mobile ${isOpen ? "open" : ""}`}>
+      <nav className={`mobile-nav ${isOpen ? "open" : ""}`}>
         <ul>
           {navigation.map((item) => (
             <li key={item.url}>
@@ -54,6 +32,6 @@ export default function Navigation() {
           ))}
         </ul>
       </nav>
-    </>
+    </div>
   );
 }

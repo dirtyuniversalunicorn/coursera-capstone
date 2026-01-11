@@ -69,6 +69,9 @@ section{
 .hero-section-col1, .hero-section-col2{
   display: flex;
 }
+.hero-section-col2 img{
+  width: 500px;
+}
 
 .hero-section-col1{
   height: 1fr;
@@ -240,6 +243,13 @@ footer ~ section {
   margin-top: 30px;
 }
 
+footer a{
+  text-decoration: none;
+  color: white;
+}
+
+
+
 .contacts{
   display: flex;
   flex-direction: column;
@@ -334,6 +344,80 @@ footer section nav ul, .contacts ul, footer .socials  {
   margin-top: -0.5rem;
 }
 
+/* Hamburger button */
+.hamburger-btn {
+  display: none; /* hide on desktop */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-btn .bar {
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+/* Mobile nav (hidden by default) */
+.nav-mobile {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: orange;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.nav-mobile.open {
+  max-height: 500px; /* enough to show all items */
+}
+
+.nav-mobile ul {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  gap: 1rem;
+}
+
+.nav-mobile ul li .link {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: capitalize;
+  padding: 0.5rem 0;
+}
+
+/* Hamburger animation when open */
+.hamburger-btn .bar.open:nth-child(1) {
+  transform: rotate(45deg) translateY(7px);
+}
+
+.hamburger-btn .bar.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn .bar.open:nth-child(3) {
+  transform: rotate(-45deg) translateY(-7px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-desktop {
+    display: none; /* hide desktop nav */
+  }
+
+  .hamburger-btn {
+    display: flex; /* show hamburger */
+  }
+}
+
 
 h1{
   font-size: 56px;
@@ -377,4 +461,73 @@ h1{
 }
 .background-2{
   background-color: hsla(0, 0%, 0%, 0.356);
+}
+
+@media(max-width: 1225px){
+  .hero-section, .wrap{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .hero-section-col1 :last-child{
+    margin-top: 1rem;
+  }
+  .specials-section-col1{
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card-wrapper, .testimonials-wrapper{
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+
+  .testimonials-wrapper{
+    justify-items: center;
+  }
+
+  .testimonial-card{
+    width: 200px;
+  }
+  .about-section{
+    grid-template-columns: repeat(1,1fr);
+    gap: 2rem;
+  }
+  .image-stack img:first-child {
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+  .image-stack{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: auto;
+    width: auto;
+
+  }
+
+  .image-stack img {
+    position: static
+  }
+
+  footer{
+    padding: 0;
+  }
+
+  footer .nav-mobile, .hamburger-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-section-col2 img, .image-stack img {
+    width: 100%;      /* image takes full width of its container */
+    height: auto;     /* maintains aspect ratio */
+    max-width: 400px; /* optional: limit max size */
+  }
 }
