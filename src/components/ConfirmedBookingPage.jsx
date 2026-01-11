@@ -1,10 +1,10 @@
-import BookingForm from "./BookingForm";
+import ConfirmedBooking from "./ConfirmedBooking";
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
 import Navigation from "./Navigation";
 
-export default function BookingPage() {
+export default function ConfirmedBookingPage() {
   return (
     <>
       <Header>
@@ -13,13 +13,9 @@ export default function BookingPage() {
 
       <Main>
         {({ availableTimes, updateTimes }) => (
-          <section className="booking-section">
-            <div className="booking-wrap">
-              <h2>Book Now</h2>
-              <BookingForm
-                availableTimes={availableTimes}
-                updateTimes={updateTimes}
-              />
+          <section>
+            <div className="wrap">
+              <ConfirmedBooking />
             </div>
           </section>
         )}

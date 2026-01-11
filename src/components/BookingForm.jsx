@@ -1,23 +1,50 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function BookingForm({ availableTimes, dispatch }) {
+export default function BookingForm({ availableTimes, updateTimes }) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("Birthday");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleDateChange = (e) => {
-    const selectedDate = e.target.value;
-    setDate(selectedDate);
+    const selectedDate = new Date(e.target.value);
+    setDate(e.target.value);
+    updateTimes(selectedDate);
+  };
 
-    dispatch({
-      type: "UPDATE_TIMES",
-      date: selectedDate,
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      date,
+      time,
+      guests,
+      occasion,
+    };
+
+    if (typeof window.submitAPI === "function") {
+      const success = window.submitAPI(formData);
+
+      if (success) {
+        setMessage("Reservation successful! ✅");
+        navigate("/confirmedBooking");
+      } else {
+        setMessage("Reservation failed. ❌ Please try again.");
+      }
+    } else {
+      setMessage("submitAPI not available.");
+    }
   };
 
   return (
-    <form className="booking-form" aria-labelledby="booking-form-heading">
+    <form
+      className="booking-form"
+      aria-labelledby="booking-form-heading"
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="res-date">Choose date</label>
       <input
         type="date"
@@ -66,6 +93,7 @@ export default function BookingForm({ availableTimes, dispatch }) {
       >
         <option>Birthday</option>
         <option>Anniversary</option>
+        <option>Engagement</option>
       </select>
 
       <input

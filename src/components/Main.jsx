@@ -1,20 +1,25 @@
-import { useReducer } from "react";
-
-export const initializeTimes = () => {
-  return ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
-};
-
-export const updateTimes = (state, action) => {
-  // later: use action.date
-  return state;
-};
+import { useState, useEffect } from "react";
 
 export default function Main({ children }) {
-  const [availableTimes, dispatch] = useReducer(
-    updateTimes,
-    [],
-    initializeTimes
-  );
+  const [availableTimes, setAvailableTimes] = useState([]);
 
-  return <main>{children({ availableTimes, dispatch })}</main>;
+  useEffect(() => {
+    if (typeof window.fetchAPI === "function") {
+      const today = new Date();
+      const times = window.fetchAPI(today);
+      setAvailableTimes(times);
+      console.log("times:", times);
+    } else {
+      console.error("fetchAPI is not loaded yet!");
+    }
+  }, []);
+
+  const updateTimes = (date) => {
+    if (typeof window.fetchAPI === "function") {
+      const times = window.fetchAPI(date);
+      setAvailableTimes(times);
+    }
+  };
+
+  return <main>{children({ availableTimes, updateTimes })}</main>;
 }
