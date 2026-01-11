@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 const navigation = [
-  "home",
-  "about",
-  "menu",
-  "testimonials",
-  "order online",
-  "login",
+  { url: "", page: "home" },
+  { url: "/about", page: "about" },
+  { url: "/menu", page: "menu" },
+  { url: "/testimonials", page: "testimonials" },
+  { url: "/order-online", page: "order online" },
+  { url: "/login", page: "login" },
 ];
 
 export default function Navigation() {
@@ -12,9 +14,13 @@ export default function Navigation() {
     <nav>
       <ul>
         {navigation.map((navigationItem) => (
-          <li key={navigationItem}>
-            <a href={`/${navigationItem}`}>{navigationItem}</a>
-          </li>
+          <Link
+            key={navigationItem.url}
+            to={`/${navigationItem.url}`}
+            className="link"
+          >
+            <li>{navigationItem.page}</li>
+          </Link>
         ))}
       </ul>
     </nav>

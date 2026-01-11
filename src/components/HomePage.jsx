@@ -14,10 +14,14 @@ export default function HomePage() {
         <Navigation />
       </Header>
       <Main>
-        <Hero />
-        <Specials />
-        <Testimonials />
-        <AboutSection />
+        {({ availableTimes, dispatch }) => (
+          <>
+            <Hero />
+            <Specials />
+            <Testimonials />
+            <AboutSection />
+          </>
+        )}
       </Main>
       <Footer />
     </>

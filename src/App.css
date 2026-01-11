@@ -35,18 +35,20 @@ ul li {
   list-style: none;
 }
 
-ul li a {
+ul .link {
   text-decoration: none;
+}
+
+ul .link li {
   color: white;
   font-weight: 600;
   text-transform: capitalize;
   letter-spacing: 0.05em;
-
   padding: 0.5rem 0.75rem;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-ul li a:hover {
+ul .link:hover li {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
 }
