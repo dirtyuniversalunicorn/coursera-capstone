@@ -7,23 +7,41 @@ export default function BookingForm({ availableTimes, updateTimes }) {
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("Birthday");
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleDateChange = (e) => {
     const selectedDate = new Date(e.target.value);
     setDate(e.target.value);
     updateTimes(selectedDate);
+
+    if (selectedDate < new Date().setHours(0, 0, 0, 0)) {
+      setErrors((prev) => ({ ...prev, date: "Date cannot be in the past." }));
+    } else {
+      setErrors((prev) => ({ ...prev, date: null }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!date) newErrors.date = "Please select a date.";
+    if (!time) newErrors.time = "Please select a time.";
+    if (!guests || guests < 1 || guests > 10)
+      newErrors.guests = "Guests must be between 1 and 10.";
+    if (!occasion) newErrors.occasion = "Please select an occasion.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setMessage("");
 
-    const formData = {
-      date,
-      time,
-      guests,
-      occasion,
-    };
+    if (!validateForm()) return; // stop submission if invalid
+
+    const formData = { date, time, guests, occasion };
 
     if (typeof window.submitAPI === "function") {
       const success = window.submitAPI(formData);
@@ -53,6 +71,7 @@ export default function BookingForm({ availableTimes, updateTimes }) {
         onChange={handleDateChange}
         aria-required="true"
       />
+      {errors.date && <span className="error">{errors.date}</span>}
 
       <label htmlFor="res-time">Choose time</label>
       <select
@@ -68,6 +87,7 @@ export default function BookingForm({ availableTimes, updateTimes }) {
           </option>
         ))}
       </select>
+      {errors.time && <span className="error">{errors.time}</span>}
 
       <label htmlFor="guests">Number of guests</label>
       <input
@@ -78,11 +98,8 @@ export default function BookingForm({ availableTimes, updateTimes }) {
         value={guests}
         onChange={(e) => setGuests(Number(e.target.value))}
         aria-required="true"
-        aria-describedby="guests-help"
       />
-      <span id="guests-help" className="visually-hidden">
-        Please enter a number between 1 and 10
-      </span>
+      {errors.guests && <span className="error">{errors.guests}</span>}
 
       <label htmlFor="occasion">Occasion</label>
       <select
@@ -91,16 +108,20 @@ export default function BookingForm({ availableTimes, updateTimes }) {
         onChange={(e) => setOccasion(e.target.value)}
         aria-required="true"
       >
+        <option value="">Select occasion</option>
         <option>Birthday</option>
         <option>Anniversary</option>
         <option>Engagement</option>
       </select>
+      {errors.occasion && <span className="error">{errors.occasion}</span>}
 
       <input
         type="submit"
         value="Make Your reservation"
         aria-label="Submit table reservation form"
       />
+
+      {message && <span className="message">{message}</span>}
     </form>
   );
 }
